@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    int n1, n2;
+    int n1, n2, n;
     double x[100] = {0}, h[100] = {0}, y[100] = {0};
 
     cout << "Enter number of first signal samples: ";
@@ -14,7 +14,7 @@ int main() {
     cin >> n2;
 
     if (n1 < 1 || n2 < 1 || n1 > 100 || n2 > 100) {
-        cout << "Invalid number of samples!";
+        cout << "Invalid input!";
         return 0;
     }
 
@@ -26,7 +26,9 @@ int main() {
     for (int i = 0; i < n2; i++)
         cin >> h[i];
 
-    int n = max(n1, n2);
+    n = max(n1, n2);
+
+    cout << "\nCircular Convolution result: ";
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -34,7 +36,6 @@ int main() {
         }
     }
 
-    cout << "Circular convolution result: ";
     for (int i = 0; i < n; i++)
         cout << y[i] << " ";
 
