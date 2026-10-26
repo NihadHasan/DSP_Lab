@@ -1,45 +1,46 @@
-
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
 int main() {
-    int n1, n2, n;
-    int x[100] = {0}, h[100] = {0}, y[100] = {0};
+    int n;
+    int x[100], h[100], matrix[100][100], y[100] = {0};
 
-    cout << "Enter number of first signal samples: ";
-    cin >> n1;
+    cout << "Enter number of samples: ";
+    cin >> n;
 
-    cout << "Enter number of second signal samples: ";
-    cin >> n2;
-
-    if (n1 < 1 || n2 < 1 || n1 > 100 || n2 > 100) {
+    if (n < 1 || n > 100) {
         cout << "Invalid input";
         return 0;
     }
 
-    cout << "Enter first signal sequences: ";
-    for (int i = 0; i < n1; i++)
+    cout << "Enter first signal: ";
+    for (int i = 0; i < n; i++)
         cin >> x[i];
 
-    cout << "Enter second signal sequences: ";
-    for (int i = 0; i < n2; i++)
+    cout << "Enter second signal: ";
+    for (int i = 0; i < n; i++)
         cin >> h[i];
 
-    n = max(n1, n2);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            matrix[i][j] = h[(i - j + n) % n];
+        }
+    }
 
     cout << "\nCirculant Matrix:\n";
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++)
-            cout << h[(i - j + n) % n] << "\t";
+            cout << matrix[i][j] << "\t";
         cout << endl;
     }
 
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            y[i] += x[j] * h[(i - j + n) % n];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            y[i] += matrix[i][j] * x[j];
+        }
+    }
 
-    cout << "\nCircular Convolution result: ";
+    cout << "\nCircular Convolution Result: ";
     for (int i = 0; i < n; i++)
         cout << y[i] << " ";
 
